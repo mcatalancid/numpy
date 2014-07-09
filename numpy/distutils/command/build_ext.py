@@ -340,7 +340,6 @@ class build_ext (old_build_ext):
                                               debug=self.debug,
                                               extra_postargs=extra_args,
                                               **kws)
-
         extra_postargs = []
         f_objects = []
         if fmodule_sources:
@@ -386,7 +385,7 @@ class build_ext (old_build_ext):
                                            debug=self.debug,
                                            extra_postargs=extra_postargs,
                                            depends=ext.depends)
-
+		
         objects = c_objects + f_objects
 
         if ext.extra_objects:
@@ -396,6 +395,7 @@ class build_ext (old_build_ext):
         library_dirs = ext.library_dirs[:]
 
         linker = self.compiler.link_shared_object
+        
         # Always use system linker when using MSVC compiler.
         if self.compiler.compiler_type=='msvc':
             # expand libraries with fcompiler libraries as we are
@@ -406,6 +406,7 @@ class build_ext (old_build_ext):
             linker = fcompiler.link_shared_object
         if ext.language=='c++' and cxx_compiler is not None:
             linker = cxx_compiler.link_shared_object
+            
 
         if sys.version[:3]>='2.3':
             kws = {'target_lang':ext.language}
@@ -420,6 +421,7 @@ class build_ext (old_build_ext):
                export_symbols=self.get_export_symbols(ext),
                debug=self.debug,
                build_temp=self.build_temp,**kws)
+        
 
     def _add_dummy_mingwex_sym(self, c_sources):
         build_src = self.get_finalized_command("build_src").build_src
