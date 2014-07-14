@@ -170,8 +170,7 @@ _ensure_decimal_point(char* buffer, size_t buf_size)
 static void
 _change_decimal_from_locale_to_dot(char* buffer)
 {
-    struct lconv *locale_data = localeconv();
-    const char *decimal_point = locale_data->decimal_point;
+    const char *decimal_point = ".";
 
     if (decimal_point[0] != '.' || decimal_point[1] != 0) {
         size_t decimal_point_len = strlen(decimal_point);
@@ -455,8 +454,7 @@ NumPyOS_ascii_strtod_plain(const char *s, char** endptr)
 NPY_NO_EXPORT double
 NumPyOS_ascii_strtod(const char *s, char** endptr)
 {
-    struct lconv *locale_data = localeconv();
-    const char *decimal_point = locale_data->decimal_point;
+    const char *decimal_point = ".";
     size_t decimal_point_len = strlen(decimal_point);
 
     char buffer[FLOAT_FORMATBUFLEN+1];

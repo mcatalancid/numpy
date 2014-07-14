@@ -41,4 +41,12 @@
         #define SIZEOF_PY_INTPTR_T  4
     #endif
 #endif
+
+/* Android only
+ */
+#ifdef ANDROID
+#undef HAVE_LDEXPL
+#undef HAVE_FREXPL
+#endif
+
 #endif
