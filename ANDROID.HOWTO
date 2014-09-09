@@ -1,0 +1,25 @@
+# NUMPY FOR ANDROID
+
+## How to crosscompile numpy for android
+
+1. Dependences: python
+
+2. In the toolchain/sysroot of android, make a symbolic link of the binaries changing the android prefix by your host prefix.
+
+Example: 
+
+  ln -s $(SYSROOT)/bin/arm-linux-androideabi-ar $(SYSROOT)/bin/x86_64-linux-gnu-ar ;\
+  
+3. Export the path of your android toolchain/sysroot as the host path:
+
+Example: 
+		export PATH=$(SYSROOT)/bin ;\
+		export LD_LIBRARY_PATH=$(SYSROOT)/lib ;\
+		export CC=$(PREFIX_EXT)gcc ;\
+		export LD=$(PREFIX_EXT)ld ;\
+		export AR=$(PREFIX_EXT)ar ;\
+		
+4. Build and install numpy using your host's python:
+
+		$(HOSTPYTHON) setup.py build_ext -v  ;\
+		$(HOSTPYTHON) setup.py install -O2 --prefix=$(CURRENT_INSTALL_DIR) ;\
